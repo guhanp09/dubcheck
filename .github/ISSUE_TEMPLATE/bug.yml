@@ -1,0 +1,11 @@
+name: Workflow bug
+description: Report a reproducible import, review, export or accessibility issue.
+title: "[Bug] "
+body:
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps and expected/actual behavior
+      description: Include browser/version and whether the sample reproduces it. Remove private transcript text.
+    validations:
+      required: true

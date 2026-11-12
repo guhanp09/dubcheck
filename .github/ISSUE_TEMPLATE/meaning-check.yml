@@ -1,0 +1,29 @@
+name: Meaning-check false flag or missed error
+description: Report an example with permission to share it; do not include private creator data.
+title: "[Meaning check] "
+body:
+  - type: textarea
+    id: example
+    attributes:
+      label: Minimal original and translated passages
+      description: Include both languages and only text you have permission to publish.
+    validations:
+      required: true
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: What happened?
+      options:
+        - A meaning error was missed
+        - An acceptable translation was flagged
+        - The passages were paired incorrectly
+        - Other behavior
+    validations:
+      required: true
+  - type: textarea
+    id: reasoning
+    attributes:
+      label: What should happen, and why?
+      description: Include the intended meaning, relevant context, your language proficiency and any uncertainty. Do not treat an AI explanation as independent verification.
+    validations:
+      required: true

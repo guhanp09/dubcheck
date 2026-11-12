@@ -1,0 +1,681 @@
+{
+  "cases": 36,
+  "provenance": "Authored, author-labelled illustrative fixtures. Not held out; no independent bilingual annotation. These numbers are not real-world translation accuracy or reviewer time savings.",
+  "baselines": {
+    "dubcheck": {
+      "tp": 15,
+      "fp": 4,
+      "fn": 5,
+      "tn": 12,
+      "precision": 0.7894736842105263,
+      "recall": 0.75,
+      "flagged": 19,
+      "total": 36
+    },
+    "digitMismatch": {
+      "tp": 4,
+      "fp": 8,
+      "fn": 16,
+      "tn": 8,
+      "precision": 0.3333333333333333,
+      "recall": 0.2,
+      "flagged": 12,
+      "total": 36
+    },
+    "reviewAll": {
+      "tp": 20,
+      "fp": 16,
+      "fn": 0,
+      "tn": 0,
+      "precision": 0.5555555555555556,
+      "recall": 1,
+      "flagged": 36,
+      "total": 36
+    }
+  },
+  "languageSlices": {
+    "hi": {
+      "tp": 10,
+      "fp": 4,
+      "fn": 4,
+      "tn": 9,
+      "precision": 0.7142857142857143,
+      "recall": 0.7142857142857143,
+      "flagged": 14,
+      "total": 27
+    },
+    "ta": {
+      "tp": 5,
+      "fp": 0,
+      "fn": 1,
+      "tn": 3,
+      "precision": 1,
+      "recall": 0.8333333333333334,
+      "flagged": 5,
+      "total": 9
+    }
+  },
+  "blindSpots": [
+    {
+      "id": "b01",
+      "note": "Agent and recipient reversed; no supported trigger."
+    },
+    {
+      "id": "b02",
+      "note": "Direction changed without an explicit negation token."
+    },
+    {
+      "id": "b03",
+      "note": "Same quantity multiset, different entity bindings."
+    },
+    {
+      "id": "b04",
+      "note": "Uncertainty removed without a trigger."
+    },
+    {
+      "id": "b05",
+      "note": "Comparative direction reversed."
+    }
+  ],
+  "falsePositives": [
+    {
+      "id": "f01",
+      "note": "Equivalent lexical negation not in the bounded cue list."
+    },
+    {
+      "id": "f02",
+      "note": "Negative instruction rephrased positively."
+    },
+    {
+      "id": "f03",
+      "note": "Hindi word number beyond supported range."
+    },
+    {
+      "id": "f04",
+      "note": "Intended decimal-comma notation; deliberately abstains instead of guessing."
+    }
+  ],
+  "results": [
+    {
+      "id": "q01",
+      "category": "quantity",
+      "source": "24 people joined.",
+      "target": "48 लोग शामिल हुए।",
+      "language": "hi",
+      "authoredMeaningError": true,
+      "expectedFlag": true,
+      "note": "Changed participant count.",
+      "kinds": [
+        "quantity"
+      ],
+      "dubcheck": true,
+      "digitMismatch": true,
+      "reviewAll": true
+    },
+    {
+      "id": "q02",
+      "category": "quantity",
+      "source": "The budget is ₹1,000.",
+      "target": "बजट ₹100 है।",
+      "language": "hi",
+      "authoredMeaningError": true,
+      "expectedFlag": true,
+      "note": "Dropped zero.",
+      "kinds": [
+        "quantity"
+      ],
+      "dubcheck": true,
+      "digitMismatch": true,
+      "reviewAll": true
+    },
+    {
+      "id": "q03",
+      "category": "quantity",
+      "source": "Use 5 grams.",
+      "target": "5 किलोग्राम लें।",
+      "language": "hi",
+      "authoredMeaningError": true,
+      "expectedFlag": true,
+      "note": "Same numeral, different unit magnitude.",
+      "kinds": [
+        "quantity"
+      ],
+      "dubcheck": true,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "q04",
+      "category": "quantity",
+      "source": "Wait 5 minutes.",
+      "target": "5 வினாடிகள் காத்திருக்கவும்.",
+      "language": "ta",
+      "authoredMeaningError": true,
+      "expectedFlag": true,
+      "note": "Minutes changed to seconds.",
+      "kinds": [
+        "quantity"
+      ],
+      "dubcheck": true,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "q05",
+      "category": "quantity",
+      "source": "The change is -5%.",
+      "target": "बदलाव 5 प्रतिशत है।",
+      "language": "hi",
+      "authoredMeaningError": true,
+      "expectedFlag": true,
+      "note": "Sign removed.",
+      "kinds": [
+        "quantity"
+      ],
+      "dubcheck": true,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "q06",
+      "category": "quantity",
+      "source": "The budget is $100.",
+      "target": "बजट ₹100 है।",
+      "language": "hi",
+      "authoredMeaningError": true,
+      "expectedFlag": true,
+      "note": "Currency changed, not converted.",
+      "kinds": [
+        "quantity"
+      ],
+      "dubcheck": true,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "q07",
+      "category": "quantity",
+      "source": "80 people joined.",
+      "target": "௮ பேர் சேர்ந்தனர்.",
+      "language": "ta",
+      "authoredMeaningError": true,
+      "expectedFlag": true,
+      "note": "Tamil digit count mismatch.",
+      "kinds": [
+        "quantity"
+      ],
+      "dubcheck": true,
+      "digitMismatch": true,
+      "reviewAll": true
+    },
+    {
+      "id": "q08",
+      "category": "quantity",
+      "source": "Use 0.5 liters.",
+      "target": "5 लीटर लें।",
+      "language": "hi",
+      "authoredMeaningError": true,
+      "expectedFlag": true,
+      "note": "Decimal magnitude changed.",
+      "kinds": [
+        "quantity"
+      ],
+      "dubcheck": true,
+      "digitMismatch": true,
+      "reviewAll": true
+    },
+    {
+      "id": "n01",
+      "category": "negation",
+      "source": "Correlation does not prove causation.",
+      "target": "सहसंबंध कारण साबित करता है।",
+      "language": "hi",
+      "authoredMeaningError": true,
+      "expectedFlag": true,
+      "note": "Negation removed.",
+      "kinds": [
+        "negation"
+      ],
+      "dubcheck": true,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "n02",
+      "category": "negation",
+      "source": "It works.",
+      "target": "यह काम नहीं करता है।",
+      "language": "hi",
+      "authoredMeaningError": true,
+      "expectedFlag": true,
+      "note": "Negation added.",
+      "kinds": [
+        "negation"
+      ],
+      "dubcheck": true,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "n03",
+      "category": "negation",
+      "source": "Do not share it.",
+      "target": "இதைப் பகிரவும்.",
+      "language": "ta",
+      "authoredMeaningError": true,
+      "expectedFlag": true,
+      "note": "Negative instruction reversed.",
+      "kinds": [
+        "negation"
+      ],
+      "dubcheck": true,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "n04",
+      "category": "negation",
+      "source": "The evidence is not complete.",
+      "target": "ஆதாரம் முழுமையானது.",
+      "language": "ta",
+      "authoredMeaningError": true,
+      "expectedFlag": true,
+      "note": "Qualification removed.",
+      "kinds": [
+        "negation"
+      ],
+      "dubcheck": true,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "g01",
+      "category": "terminology",
+      "source": "Use random assignment.",
+      "target": "यादृच्छिक नमूना लें।",
+      "language": "hi",
+      "authoredMeaningError": true,
+      "expectedFlag": true,
+      "glossary": [
+        {
+          "id": "term1",
+          "source": "random assignment",
+          "translations": [
+            "यादृच्छिक आवंटन",
+            "रैंडम असाइनमेंट"
+          ]
+        }
+      ],
+      "note": "Assignment confused with sampling.",
+      "kinds": [
+        "glossary"
+      ],
+      "dubcheck": true,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "g02",
+      "category": "terminology",
+      "source": "Contact Kavya.",
+      "target": "कविता से संपर्क करें।",
+      "language": "hi",
+      "authoredMeaningError": true,
+      "expectedFlag": true,
+      "glossary": [
+        {
+          "id": "name",
+          "source": "Kavya",
+          "translations": [
+            "काव्या"
+          ]
+        }
+      ],
+      "note": "Name changed; creator supplied expected spelling.",
+      "kinds": [
+        "glossary"
+      ],
+      "dubcheck": true,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "g03",
+      "category": "terminology",
+      "source": "Use random assignment.",
+      "target": "சீரற்ற மாதிரியைப் பயன்படுத்தவும்.",
+      "language": "ta",
+      "authoredMeaningError": true,
+      "expectedFlag": true,
+      "glossary": [
+        {
+          "id": "term",
+          "source": "random assignment",
+          "translations": [
+            "சீரற்ற ஒதுக்கீடு"
+          ]
+        }
+      ],
+      "note": "Assignment confused with sampling.",
+      "kinds": [
+        "glossary"
+      ],
+      "dubcheck": true,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "e01",
+      "category": "equivalence",
+      "source": "Wait 60 seconds.",
+      "target": "एक मिनट रुकें।",
+      "language": "hi",
+      "authoredMeaningError": false,
+      "expectedFlag": false,
+      "note": "Equivalent unit conversion.",
+      "kinds": [],
+      "dubcheck": false,
+      "digitMismatch": true,
+      "reviewAll": true
+    },
+    {
+      "id": "e02",
+      "category": "equivalence",
+      "source": "Wait 60 seconds.",
+      "target": "ஒரு நிமிடம் காத்திருக்கவும்.",
+      "language": "ta",
+      "authoredMeaningError": false,
+      "expectedFlag": false,
+      "note": "Equivalent unit conversion with a Tamil number word.",
+      "kinds": [],
+      "dubcheck": false,
+      "digitMismatch": true,
+      "reviewAll": true
+    },
+    {
+      "id": "e03",
+      "category": "equivalence",
+      "source": "Use 1 kg.",
+      "target": "1000 ग्राम लें।",
+      "language": "hi",
+      "authoredMeaningError": false,
+      "expectedFlag": false,
+      "note": "Equivalent mass.",
+      "kinds": [],
+      "dubcheck": false,
+      "digitMismatch": true,
+      "reviewAll": true
+    },
+    {
+      "id": "e04",
+      "category": "equivalence",
+      "source": "24 people joined.",
+      "target": "२४ लोग शामिल हुए।",
+      "language": "hi",
+      "authoredMeaningError": false,
+      "expectedFlag": false,
+      "note": "Devanagari digit normalization.",
+      "kinds": [],
+      "dubcheck": false,
+      "digitMismatch": true,
+      "reviewAll": true
+    },
+    {
+      "id": "e05",
+      "category": "equivalence",
+      "source": "80 people joined.",
+      "target": "௮௦ பேர் சேர்ந்தனர்.",
+      "language": "ta",
+      "authoredMeaningError": false,
+      "expectedFlag": false,
+      "note": "Tamil digit normalization.",
+      "kinds": [],
+      "dubcheck": false,
+      "digitMismatch": true,
+      "reviewAll": true
+    },
+    {
+      "id": "e06",
+      "category": "equivalence",
+      "source": "The budget is ₹1,00,000.",
+      "target": "बजट ₹100,000 है।",
+      "language": "hi",
+      "authoredMeaningError": false,
+      "expectedFlag": false,
+      "note": "Indian and international grouping.",
+      "kinds": [],
+      "dubcheck": false,
+      "digitMismatch": true,
+      "reviewAll": true
+    },
+    {
+      "id": "e07",
+      "category": "equivalence",
+      "source": "Use 500mg.",
+      "target": "0.5 ग्राम लें।",
+      "language": "hi",
+      "authoredMeaningError": false,
+      "expectedFlag": false,
+      "note": "Attached unit and equivalent mass.",
+      "kinds": [],
+      "dubcheck": false,
+      "digitMismatch": true,
+      "reviewAll": true
+    },
+    {
+      "id": "e08",
+      "category": "equivalence",
+      "source": "It does not work.",
+      "target": "यह काम नहीं करता है।",
+      "language": "hi",
+      "authoredMeaningError": false,
+      "expectedFlag": false,
+      "note": "Polarity preserved.",
+      "kinds": [],
+      "dubcheck": false,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "e09",
+      "category": "equivalence",
+      "source": "It does not work.",
+      "target": "இது வேலை செய்யவில்லை.",
+      "language": "ta",
+      "authoredMeaningError": false,
+      "expectedFlag": false,
+      "note": "Supported Tamil negative suffix.",
+      "kinds": [],
+      "dubcheck": false,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "e10",
+      "category": "equivalence",
+      "source": "Use random assignment.",
+      "target": "रैंडम असाइनमेंट करें।",
+      "language": "hi",
+      "authoredMeaningError": false,
+      "expectedFlag": false,
+      "glossary": [
+        {
+          "id": "term1",
+          "source": "random assignment",
+          "translations": [
+            "यादृच्छिक आवंटन",
+            "रैंडम असाइनमेंट"
+          ]
+        }
+      ],
+      "note": "Accepted term variant.",
+      "kinds": [],
+      "dubcheck": false,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "e11",
+      "category": "equivalence",
+      "source": "Review the evidence.",
+      "target": "सबूत की समीक्षा करें।",
+      "language": "hi",
+      "authoredMeaningError": false,
+      "expectedFlag": false,
+      "note": "Ordinary correct passage.",
+      "kinds": [],
+      "dubcheck": false,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "e12",
+      "category": "equivalence",
+      "source": "Not only clear but accurate.",
+      "target": "स्पष्ट और सटीक।",
+      "language": "hi",
+      "authoredMeaningError": false,
+      "expectedFlag": false,
+      "note": "Not-only is not a negative assertion.",
+      "kinds": [],
+      "dubcheck": false,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "b01",
+      "category": "blind-spot",
+      "source": "The teacher helped the student.",
+      "target": "छात्र ने शिक्षक की मदद की।",
+      "language": "hi",
+      "authoredMeaningError": true,
+      "expectedFlag": false,
+      "note": "Agent and recipient reversed; no supported trigger.",
+      "kinds": [],
+      "dubcheck": false,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "b02",
+      "category": "blind-spot",
+      "source": "The group increased by 20%.",
+      "target": "समूह 20 प्रतिशत घट गया।",
+      "language": "hi",
+      "authoredMeaningError": true,
+      "expectedFlag": false,
+      "note": "Direction changed without an explicit negation token.",
+      "kinds": [],
+      "dubcheck": false,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "b03",
+      "category": "blind-spot",
+      "source": "A has 5 and B has 10.",
+      "target": "A के पास 10 और B के पास 5 हैं।",
+      "language": "hi",
+      "authoredMeaningError": true,
+      "expectedFlag": false,
+      "note": "Same quantity multiset, different entity bindings.",
+      "kinds": [],
+      "dubcheck": false,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "b04",
+      "category": "blind-spot",
+      "source": "It may cause a change.",
+      "target": "यह निश्चित रूप से बदलाव करता है।",
+      "language": "hi",
+      "authoredMeaningError": true,
+      "expectedFlag": false,
+      "note": "Uncertainty removed without a trigger.",
+      "kinds": [],
+      "dubcheck": false,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "b05",
+      "category": "blind-spot",
+      "source": "The result is higher.",
+      "target": "முடிவு குறைவாக உள்ளது.",
+      "language": "ta",
+      "authoredMeaningError": true,
+      "expectedFlag": false,
+      "note": "Comparative direction reversed.",
+      "kinds": [],
+      "dubcheck": false,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "f01",
+      "category": "false-positive",
+      "source": "It is not possible.",
+      "target": "यह असंभव है।",
+      "language": "hi",
+      "authoredMeaningError": false,
+      "expectedFlag": true,
+      "note": "Equivalent lexical negation not in the bounded cue list.",
+      "kinds": [
+        "negation"
+      ],
+      "dubcheck": true,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "f02",
+      "category": "false-positive",
+      "source": "Do not stop.",
+      "target": "जारी रखें।",
+      "language": "hi",
+      "authoredMeaningError": false,
+      "expectedFlag": true,
+      "note": "Negative instruction rephrased positively.",
+      "kinds": [
+        "negation"
+      ],
+      "dubcheck": true,
+      "digitMismatch": false,
+      "reviewAll": true
+    },
+    {
+      "id": "f03",
+      "category": "false-positive",
+      "source": "100 people joined.",
+      "target": "सौ लोग शामिल हुए।",
+      "language": "hi",
+      "authoredMeaningError": false,
+      "expectedFlag": true,
+      "note": "Hindi word number beyond supported range.",
+      "kinds": [
+        "quantity"
+      ],
+      "dubcheck": true,
+      "digitMismatch": true,
+      "reviewAll": true
+    },
+    {
+      "id": "f04",
+      "category": "false-positive",
+      "source": "The value is 1.5.",
+      "target": "मान 1,5 है।",
+      "language": "hi",
+      "authoredMeaningError": false,
+      "expectedFlag": true,
+      "note": "Intended decimal-comma notation; deliberately abstains instead of guessing.",
+      "kinds": [
+        "number-format",
+        "quantity"
+      ],
+      "dubcheck": true,
+      "digitMismatch": false,
+      "reviewAll": true
+    }
+  ]
+}

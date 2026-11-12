@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:07,000
+In this study, 24 people take part.
+
+2
+00:00:07,000 --> 00:00:14,000
+Each group has 12 participants.
+
+3
+00:00:14,000 --> 00:00:21,000
+Correlation does not prove causation.
+
+4
+00:00:21,000 --> 00:00:28,000
+Use random assignment to create the groups.
+
+5
+00:00:28,000 --> 00:00:36,000
+Wait 60 seconds before recording the result.
+
+6
+00:00:36,000 --> 00:00:44,000
+The study budget is ₹1,000.
+
+7
+00:00:44,000 --> 00:00:52,000
+A larger sample can still be biased.
+
+8
+00:00:52,000 --> 00:00:59,000
+Record the uncertainty, not just the average.
+
+9
+00:00:59,000 --> 00:01:06,000
+Ask what changed before you claim why.
+
+10
+00:01:06,000 --> 00:01:13,000
+Review the evidence before sharing.
