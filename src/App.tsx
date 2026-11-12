@@ -157,6 +157,11 @@ export default function App() {
         : a.startMs - b.startMs,
     );
   const activeIndex = groups.findIndex((g) => g.id === selected?.id);
+  const timelineStart = Math.min(
+    Math.max(0, activeIndex - 11),
+    Math.max(0, groups.length - 24),
+  );
+  const timelineGroups = groups.slice(timelineStart, timelineStart + 24);
   async function restore(file?: File) {
     if (!file || !proceed()) return;
     if (file.size > MAX_BACKUP_BYTES) {
@@ -554,7 +559,7 @@ export default function App() {
               </div>
             </div>
             <div className="passage-map" aria-label="Passage timeline">
-              {groups.map((g) => (
+              {timelineGroups.map((g) => (
                 <button
                   key={g.id}
                   style={{ flexGrow: Math.max(1, g.endMs - g.startMs) }}
@@ -565,6 +570,13 @@ export default function App() {
                 />
               ))}
             </div>
+            {groups.length > 24 && (
+              <p className="timeline-range">
+                Nearby passages {timelineStart + 1}–
+                {timelineStart + timelineGroups.length} of {groups.length}. Use
+                the queue or arrows to move through the full review.
+              </p>
+            )}
             <div className="pairing-row">
               <span>
                 <Link2 size={14} />

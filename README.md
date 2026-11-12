@@ -45,7 +45,7 @@ Supported comparison languages are **English, Hindi and Tamil**, with deliberate
 ## What has been measured
 
 - **66 unit/integration tests** cover imports, alignment, quantities, review validity, exports and storage safeguards.
-- **24 browser tests** exercise complete review flows, media seeking, downloads/restoration, mobile layouts, accessibility checks and failure recovery.
+- **25 browser tests** exercise complete review flows, media seeking, downloads/restoration, mobile layouts, accessibility checks and failure recovery.
 - **36 authored evaluation fixtures** compare DubCheck with raw-digit mismatch and review-everything baselines. The report includes **5 known missed errors and 4 false flags**. Labels are author-provided and are not independent bilingual ground truth.
 - A 1,000-cue-per-track scale smoke test runs with the evaluation. It is a local runtime observation, not a performance SLA.
 

@@ -5,7 +5,7 @@ Verified locally on **12 November 2026** with Node 24 and Chrome on macOS. GitHu
 | Check | Result |
 |---|---|
 | Unit/integration suite | 66 passing tests across 4 files |
-| Browser suite | 24 passing tests |
+| Browser suite | 25 passing tests |
 | Authored evaluation | 36 cases, zero expected-behavior regressions; known misses/false flags retained |
 | TypeScript | Clean production type check |
 | Vite production build | Successful static bundle |

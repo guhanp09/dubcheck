@@ -108,13 +108,11 @@ test("exports a draft corrected script, report, CSV and a restorable audit backu
   await page.getByRole("button", { name: "Try a sample" }).click();
   await page.getByRole("button", { name: /English.*Tamil/ }).click();
   await expect(page.locator(".language-pill").last()).toHaveText("Tamil");
-  await page
-    .getByLabel("Restore workspace backup")
-    .setInputFiles({
-      name: backup.name,
-      mimeType: "application/json",
-      buffer: backup.buffer,
-    });
+  await page.getByLabel("Restore workspace backup").setInputFiles({
+    name: backup.name,
+    mimeType: "application/json",
+    buffer: backup.buffer,
+  });
   await expect(page.getByLabel("Proposed dub text")).toHaveValue(
     "इस अध्ययन में 24 लोग भाग लेते हैं।",
   );
@@ -155,15 +153,13 @@ test("imports WebVTT and SRT without executing embedded markup", async ({
 }) => {
   await page.getByRole("button", { name: "Import transcripts" }).click();
   await page.getByLabel("Project title").fill("My own episode");
-  await page
-    .getByLabel("Upload source captions")
-    .setInputFiles({
-      name: "original.vtt",
-      mimeType: "text/vtt",
-      buffer: Buffer.from(
-        "WEBVTT\n\n00:00.000 --> 00:05.000\nThere are 10 people.\n",
-      ),
-    });
+  await page.getByLabel("Upload source captions").setInputFiles({
+    name: "original.vtt",
+    mimeType: "text/vtt",
+    buffer: Buffer.from(
+      "WEBVTT\n\n00:00.000 --> 00:05.000\nThere are 10 people.\n",
+    ),
+  });
   await page
     .getByLabel("Or paste dub captions")
     .fill(captions("<img src=x onerror=alert(1)>20 लोग हैं।"));
@@ -307,13 +303,11 @@ test("rejects invalid restored backups with no loss of current work", async ({
   page,
 }) => {
   await correct(page);
-  await page
-    .getByLabel("Restore workspace backup")
-    .setInputFiles({
-      name: "bad.json",
-      mimeType: "application/json",
-      buffer: Buffer.from('{"schemaVersion":99}'),
-    });
+  await page.getByLabel("Restore workspace backup").setInputFiles({
+    name: "bad.json",
+    mimeType: "application/json",
+    buffer: Buffer.from('{"schemaVersion":99}'),
+  });
   await expect(
     page.getByText("Invalid DubCheck v1 workspace:", { exact: false }),
   ).toBeVisible();
@@ -387,13 +381,11 @@ test("plays and seeks attached local audio and excludes media from backups", asy
   wave.write("data", 36);
   wave.writeUInt32LE(length, 40);
   await page.locator(".listen-section summary").click();
-  await page
-    .getByLabel("Attach original media")
-    .setInputFiles({
-      name: "synthetic-silence.wav",
-      mimeType: "audio/wav",
-      buffer: wave,
-    });
+  await page.getByLabel("Attach original media").setInputFiles({
+    name: "synthetic-silence.wav",
+    mimeType: "audio/wav",
+    buffer: wave,
+  });
   await expect
     .poll(() =>
       page.locator("audio").evaluate((el: HTMLAudioElement) => el.readyState),
@@ -496,4 +488,45 @@ test("does not upload transcripts or call external services while reviewing", as
   await page.getByRole("button", { name: "Export handoff" }).click();
   expect(external).toEqual([]);
   expect(errors).toEqual([]);
+});
+
+test("keeps long transcript navigation usable without clipping the passage map", async ({
+  page,
+}) => {
+  const time = (n: number) =>
+    `00:${String(Math.floor(n / 60)).padStart(2, "0")}:${String(n % 60).padStart(2, "0")},000`;
+  const source = Array.from(
+    { length: 60 },
+    (_, i) =>
+      `${i + 1}\n${time(i * 4)} --> ${time(i * 4 + 3)}\nPassage ${i + 1} contains evidence.`,
+  ).join("\n\n");
+  const target = Array.from(
+    { length: 60 },
+    (_, i) =>
+      `${i + 1}\n${time(i * 4)} --> ${time(i * 4 + 3)}\nभाग ${i + 1} में प्रमाण है।`,
+  ).join("\n\n");
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.getByRole("button", { name: "Import transcripts" }).click();
+  await page.getByLabel("Project title").fill("A longer lesson");
+  await page.getByLabel("Or paste original captions").fill(source);
+  await page.getByLabel("Or paste dub captions").fill(target);
+  await page.getByRole("button", { name: "Create workspace" }).click();
+  await expect(page.locator(".project-identity p")).toContainText(
+    "60 passages",
+  );
+  expect(await page.locator(".passage-map button").count()).toBe(24);
+  await page.getByLabel("Search passages").fill("Passage 60");
+  await page.locator(".queue-item").click();
+  await expect(
+    page.getByText("PASSAGE 60 OF 60", { exact: true }),
+  ).toBeVisible();
+  await expect(page.locator(".timeline-range")).toContainText("37–60 of 60");
+  expect(
+    await page
+      .locator(".passage-map")
+      .evaluate((el) => el.scrollWidth <= el.clientWidth),
+  ).toBe(true);
+  await expect(
+    page.getByRole("button", { name: "Next passage" }),
+  ).toBeDisabled();
 });
